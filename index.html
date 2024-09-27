@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <style>
+        /* Style generale */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 90%;
+            margin: auto;
+        }
+
+        /* Box contenente la domanda */
+        .box {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .box p {
+            font-size: 18px;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Stile delle risposte */
+        .answers {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .answers li {
+            margin: 10px 0;
+        }
+
+        .answers button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .answers button:hover {
+            background-color: #0056b3;
+        }
+
+        .answers button.correct {
+            background-color: green;
+        }
+
+        .answers button.incorrect {
+            background-color: red;
+        }
+
+        /* Bottone di ricaricamento */
+        #retryBtn {
+            display: none;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #retryBtn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive design per iPhone 11 */
+        @media (max-width: 414px) {
+            .box p {
+                font-size: 16px;
+            }
+
+            .answers button {
+                font-size: 14px;
+            }
+
+            #retryBtn {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box" id="questionBox">
+            <p>Ciao Letizia, eccoci oggi con il secondo indovinello a tema Ingegneria Gestionale. Sei al secondo step per conoscere il luogo in cui è situato il tuo regalo:</p><br>
+            <p style="background-color: #007bff4f; border-radius: 5px; padding:10px;">SONO UN MODELLO UTILIZZATO PER ORGANIZZARE E OTTIMIZZARE LA PRODUZIONE. AIUTO A MIGLIORARE L'EFFICIENZA E A RIDURRE I COSTI IN AZIENDA. CHI SONO?</p>
+        </div>
+
+        <ul class="answers" id="answersList">
+            <li><button onclick="checkAnswer(this, false)">Diagramma di flusso</button></li>
+            <li><button onclick="checkAnswer(this, false)">Processo Lean</button></li>
+            <li><button onclick="checkAnswer(this, true)">Ottimizzazione</button></li>
+            <li><button onclick="checkAnswer(this, false)">Controllo di qualità</button></li>
+        </ul>
+
+        <button id="retryBtn" onclick="window.location.reload()">Prova ancora</button>
+    </div>
+
+    <script>
+        function checkAnswer(button, isCorrect) {
+    const answersList = document.getElementById('answersList');
+    const questionBox = document.getElementById('questionBox');
+    const retryBtn = document.getElementById('retryBtn');
+
+    if (isCorrect) {
+        button.classList.add('correct');
+        questionBox.innerHTML = "<p>HAI VINTO</p>";
+    } else {
+        button.classList.add('incorrect');
+        retryBtn.style.display = 'inline-block';
+    }
+
+    // Disabilita tutti i bottoni dopo una scelta
+    let buttons = answersList.getElementsByTagName('button');
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].disabled = true;
+    }
+}
+
+// Aggiungi listener per touchstart
+document.querySelectorAll('button').forEach(button => {
+    button.addEventListener('touchstart', function() {
+        this.click();
+    });
+});
+    </script>
+</body>
+</html>
